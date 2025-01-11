@@ -25,6 +25,21 @@ const Users = () => {
     }
   };
 
+
+  const handleDelete = (userId) => {
+    // console.log(e.target)
+   let users = JSON.parse(localStorage.getItem("users"))
+
+   let indexToRemove = users.findIndex(user => user.id === userId);
+  
+   if(indexToRemove !== -1){
+    users.splice(indexToRemove , 1)
+   }else{
+    users.splice(indexToRemove , 1)
+   }
+   localStorage.setItem("users" , JSON.stringify(users))
+  }
+
   const handlechange = (e) => {
     setpass(e.target.value);
   };
@@ -67,7 +82,8 @@ const Users = () => {
       <div ref={showhideref} className="w-full  flex-col gap-2 p-3 hidden">
         {storeduser.map((elem, id) => {
           return (
-            <div key={id} className="item bg-black p-3 rounded-xl">
+            <div key={id} className="item relative bg-black p-3 rounded-xl">
+              <button onClick={handleDelete} className="text-white absolute right-5 top-6">Delete</button>
               <h2 className="text-[16px] text-white">
                 Username: {elem.username}
               </h2>
